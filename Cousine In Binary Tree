@@ -1,0 +1,56 @@
+//Cousine In Binary Tree
+package cousinenodes;
+//height of the tree
+//Parent of the node
+// for this we will check if they are not sibilings then they must would be cousine 
+class Node
+{
+	int data;
+	Node left=null;
+	Node right=null;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class CousineNodes 
+{
+	static boolean iscousine(Node node,Node a , Node b)
+	{
+		if(node==null || a.data==0 || b.data==0)
+			return false;
+		if(getlevel(node,a.data,1)!=getlevel(node,b.data,1))
+			return false;
+		return !issibilings(node,a,b);
+		
+	}
+	static int getlevel(Node node,int val, int height)
+	{
+		if(node==null)
+			return 0;
+		if(node.data==val)
+			return height;
+		int l= getlevel(node.left,val,height+1);
+		if(l!=0)
+			return l;
+		l= getlevel(node.right,val,height+1);
+		return l;
+	}
+	static boolean issibilings(Node node, Node a,Node b)
+	{
+		if(node == null)
+			return false;
+		return (node.left==a && node.right==b || node.right==a && node.left==b || issibilings(node.left,a,b) || issibilings(node.right,a,b));
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(10);
+		root.left=new Node(2);
+		root.right = new Node(7);
+		root.left.left= new Node(8);
+		root.left.right = new Node(4);
+		System.out.println(iscousine(root,root.left.left,root.right));
+	}
+}
