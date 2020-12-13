@@ -1,0 +1,64 @@
+//Vertical order traversal
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+}
+public class VerticalOrder 
+{
+    static Node root;
+    static Node newNode(int data)  
+	{  
+	    Node node = new Node();  
+	    node.data = data;  
+	    node.left = node.right = null;  
+	    return (node);  
+	}
+	static void printverticalorder(Node node)
+	{
+		if(node==null)
+			return;
+		int hd=0;
+		TreeMap<Integer, ArrayList<Integer>> map = new TreeMap<>();
+		getverticalorder(node,map,hd);
+		for(Map.Entry<Integer,ArrayList<Integer>> cm : map.entrySet())
+		{
+			System.out.println(cm.getValue());
+		}
+		
+	}
+	static void getverticalorder(Node node,TreeMap<Integer, ArrayList<Integer>> map,int hd)
+	{
+		if(node== null)
+			return;
+		if(map.get(hd)==null)
+		{
+			ArrayList<Integer> l = new ArrayList<>();
+			l.add(node.data);
+			map.put(hd, l);
+		}
+		else
+		{
+			ArrayList<Integer> l = map.get(hd);
+			l.add(node.data);
+			map.put(hd,l);
+		}
+		getverticalorder(node.left,map,hd-1);
+		getverticalorder(node.right,map,hd-1);
+	}
+	public static void main(String[] args) 
+	{
+		Node root = newNode(8);  
+	    root.left = newNode(3);  
+	    root.right = newNode(10);  
+	    root.left.left = newNode(1);  
+	    root.left.right = newNode(6);  
+	    root.right.right = newNode(14);  
+	    root.right.right.left = newNode(13);  
+	    root.left.right.left = newNode(4);  
+	    root.left.right.right = newNode(7);
+	    printverticalorder(root);
+	}
+}
