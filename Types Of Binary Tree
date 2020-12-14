@@ -1,3 +1,4 @@
 Complete Binary Tree-> A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.
 Full Binary Tree-> A full binary tree (sometimes proper binary tree or 2-tree) is a tree in which every node other than the leaves has two children.
 Perfect binary tree-> A perfect binary tree is a binary tree in which all interior nodes have two children and all leaves have the same depth or same level.
+Almost Complete Binary Tree-> An almost complete binary tree is a complete but not perfect binary tree.
