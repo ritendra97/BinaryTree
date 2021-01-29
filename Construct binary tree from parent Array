@@ -1,0 +1,56 @@
+//Construct binary tree from parent Array
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root = null;
+	static HashMap<Integer,Node> map = new HashMap<>();
+	public static Node parentarraytree(int parentarray[])
+	{
+		for(int i=0;i<parentarray.length;i++)
+		{
+			Node new_node = new Node(i);
+			map.put(i, new_node);
+		}
+		for(int i=0;i<parentarray.length;i++)
+		{
+	          if(parentarray[i]==-1)
+	          {
+	        	  root=map.get(i);
+	          }
+	          else
+	          {
+	        	  if(map.get(parentarray[i]).left==null)
+	        		  map.get(parentarray[i]).left = map.get(i);
+	        	  else
+	        		  map.get(parentarray[i]).right = map.get(i);
+	          }
+		}
+		return root;
+	}
+	static void inorder(Node root)
+	{
+		if(root==null)
+			return;
+		System.out.print(root.data+" ");;
+		inorder(root.left);
+		inorder(root.right);
+	}
+	public static void main(String[] args) 
+	{
+		int parentarray[] = {-1,0,1,2,3};
+		Node root=parentarraytree(parentarray);
+		inorder(root);
+	}
+}
