@@ -1,0 +1,164 @@
+//Deletion in a Binary Tree
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static Node temp;
+	static Node temp2;
+	static void deletedepest(Node root)
+	{
+		Node node =root;
+		if(node.right.left==null && node.right.right==null)
+		{
+			temp=node;
+			return;
+		}
+		deletedepest(node.right);
+	}
+	static Node delete(Node deleteNode,Node root)
+	{
+		Node node2=root;
+		if(node2==null)
+			return null;
+		if(node2==deleteNode)
+		{
+			deleteNode.data=temp.right.data;
+			temp.right=null;
+		}
+		delete(deleteNode, node2.left);
+		delete(deleteNode, node2.right);
+		return root;
+	}
+	static void inorder(Node temp)
+    {
+        if (temp == null)
+            return;
+ 
+        inorder(temp.left);
+        System.out.print(temp.data + " ");
+        inorder(temp.right);
+    }
+	public static void main(String[] args) 
+	{
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(16);
+		root.right.right = new Node(9);
+		System.out.print("Inorder traversal before deletion:");
+		inorder(root);
+		deletedepest(root);
+		delete(root.left,root);
+		System.out.print("\nInorder traversal after deletion:");
+		inorder(root);
+	}
+}
+//this is optimized solution.
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static void remove_node(Node root,Node last_node)
+	{
+		if(root==null)
+			return;
+		if(root==last_node)
+		{
+			root=null;
+			return;
+		}
+		if(root.left==last_node)
+		{
+			root.left=null;
+		}
+		if(root.right==last_node)
+		{
+			root.right=null;
+		}
+		remove_node(root.left,last_node);
+		remove_node(root.right,last_node);
+	}
+	static void delete(Node node,int key)
+	{
+		if(node==null)
+		    return;
+		if(node.data==key)
+		{
+			node=null;
+			return;
+		}
+		Node last_node=null;
+		Node key_node=null;
+		Queue<Node> q = new LinkedList<>();
+		q.add(node);
+		while(!q.isEmpty())
+		{
+			last_node = q.remove();
+			if(last_node.data==key)
+				key_node=last_node;
+			if(last_node.left!=null)
+			{
+				q.add(last_node.left);
+			}
+			if(last_node.right!=null)
+			{
+				q.add(last_node.right);
+			}
+		}
+		if(key_node!=null)
+		{
+			key_node.data=last_node.data;
+			remove_node(root,last_node);
+		}
+	}
+	static void inorder(Node temp)
+    {
+        if (temp == null)
+            return;
+ 
+        inorder(temp.left);
+        System.out.print(temp.data + " ");
+        inorder(temp.right);
+    }
+	public static void main(String[] args) 
+	{
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(16);
+		root.right.right = new Node(9);
+		System.out.print("Inorder traversal before deletion:");
+		inorder(root);
+		delete(root,12);
+		System.out.print("\nInorder traversal after deletion:");
+		inorder(root);
+	}
+}
