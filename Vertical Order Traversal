@@ -62,3 +62,88 @@ public class VerticalOrder
 	    printverticalorder(root);
 	}
 }
+// Verticak order traversal Iterative form
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+class cell
+{
+	int height;
+	Node node;
+	cell(int height,Node node)
+	{
+		this.height=height;
+		this.node=node;
+	}
+}
+public class BinaryTree 
+{
+	static int height=0;
+	Node root;
+	static TreeMap<Integer,ArrayList<Integer>> map = new TreeMap<Integer,ArrayList<Integer>>();
+	static Queue<cell> q = new LinkedList<>();
+	static ArrayList<Integer> verticalOrder(Node root)
+	{
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+        if(root == null)
+            return null; 
+        q.add(new cell(0,root));
+        while(!q.isEmpty())
+        {
+        	cell temp = q.remove();
+        	if(map.get(temp.height)==null)
+        	{
+        		ArrayList<Integer> l = new ArrayList<Integer>();
+        		l.add(temp.node.data);
+        		map.put(temp.height,l);
+        	}
+        	else
+        	{
+        		ArrayList<Integer> l=map.get(temp.height);
+        		l.add(temp.node.data);
+        		map.put(temp.height,l);
+        	}
+        	if(temp.node.left!=null)
+        	{
+        		q.add(new cell(temp.height-1,temp.node.left));
+        	}
+        	if(temp.node.right!=null)
+        	{
+        		q.add(new cell(temp.height+1,temp.node.right));
+        	}
+        }
+        for(Map.Entry<Integer,ArrayList<Integer>> cm : map.entrySet())
+		{
+        	Iterator<Integer> iter = cm.getValue().iterator();
+        	while(iter.hasNext())
+        	{
+        		ans.add(iter.next());
+        	}
+		}
+        return ans;
+    }
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree(); 
+        tree.root = new Node(1); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(3); 
+        tree.root.left.left = new Node(4); 
+        tree.root.left.right = new Node(5); 
+        tree.root.right.left = new Node(6); 
+        tree.root.right.right = new Node(7); 
+        tree.root.right.left.right = new Node(8); 
+        tree.root.right.right.right = new Node(9); 
+	    System.out.println(verticalOrder(tree.root));
+	}
+}
