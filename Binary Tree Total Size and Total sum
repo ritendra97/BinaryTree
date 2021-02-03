@@ -1,0 +1,102 @@
+//Binary Tree Size and sum
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BianryTree 
+{
+	static class Pair
+	{
+		int state;
+		Node node;
+		Pair(Node node,int state)
+		{
+			this.node= node;
+			this.state=state;
+		}
+	}
+	static Node construct(Integer arr[])
+	{
+		Stack<Pair> st = new Stack<>();
+		int index=0;
+		Node root = new Node(arr[index]);
+		st.add(new Pair(root,1));
+		while(!st.isEmpty())
+		{
+		    Pair top = st.peek();
+		    if(top.state==1)
+		    {
+		    	index++;
+		    	if(arr[index]!=null)
+		    	{
+		    		top.node.left = new Node(arr[index]);
+		    		Pair ln = new Pair(top.node.left,1);
+			    	st.push(ln);
+		    	}
+		    	top.state++;
+		    }
+		    else if(top.state==2)
+		    {
+		    	index++;
+		    	if(arr[index]!=null)
+		    	{
+		    		top.node.right = new Node(arr[index]);
+		    		Pair rn = new Pair(top.node.right,1);
+			    	st.push(rn);
+		    	}
+		    	top.state++;
+		    }
+		    else
+		    {
+		    	st.pop();
+		    }
+		}
+		return root;
+	}
+	
+	static int size(Node node)
+	{
+		if(node==null)
+			return 0;
+		int ls = size(node.left);
+		int rs = size(node.right);
+		int ts = ls+rs+1;
+		return ts;
+	}
+	static int sum(Node node)
+	{
+		if(node==null)
+			return 0;
+		int l_sum = sum(node.left);
+		int r_sum = sum(node.right);
+		int t_sum = l_sum+r_sum+node.data;
+		return t_sum;
+	}
+	static void inorder(Node temp)
+    {
+        if (temp == null)
+            return;
+ 
+        inorder(temp.left);
+        System.out.print(temp.data + " ");
+        inorder(temp.right);
+    }
+	public static void main(String[] args) 
+	{
+		Integer arr[] = {50,25,12,null,null,37,30,null,null,null,75,62,null,70,null,null,87,null,null};
+		Node root = construct(arr);
+		inorder(root);
+		System.out.println("\nThe size of the tree is: "+size(root));
+		System.out.println("The sum of the tree is: "+sum(root));
+		System.out.println("The max of the tree is: "+max(root));
+	}
+}
