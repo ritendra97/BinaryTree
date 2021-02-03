@@ -1,0 +1,71 @@
+//Binary Tree Iterative inorder preorder postorder
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static class Pair
+	{
+		int state;
+		Node node;
+		Pair(Node node,int state)
+		{
+			this.node= node;
+			this.state=state;
+		}
+	}
+	static Node root;
+	static void printinpreamdpost(Node node)
+	{
+		Stack<Pair> st = new Stack<>();
+		st.push(new Pair(node,1));
+		while(!st.isEmpty())
+		{
+			Pair temp = st.peek();
+			if(temp.state==1)
+			{
+				System.out.println("This is preorder: "+temp.node.data+" ");
+				if(temp.node.left!=null)
+				{
+					st.push(new Pair(temp.node.left,1));
+				}
+				temp.state++;
+			}
+			else if(temp.state==2)
+			{
+				System.out.println("This is inorder: "+temp.node.data+" ");
+				if(temp.node.right!=null)
+				{
+					st.push(new Pair(temp.node.right,1));
+				}
+				temp.state++;
+			}
+			else
+			{
+				System.out.println("This is postorder: "+temp.node.data+" ");
+				st.pop();
+			}
+		}
+	}
+	public static void main(String[] args) 
+	{
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(16);
+		root.right.right = new Node(9);
+		printinpreamdpost(root);
+	}
+}
