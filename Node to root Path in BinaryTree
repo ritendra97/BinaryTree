@@ -1,0 +1,69 @@
+//Node to root Path in BinaryTree
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	
+	static boolean findPathutil(Node root, ArrayList<Integer> ans, int data)
+	{
+		if(root == null)
+			return false;
+		if(root.data == data)
+		{
+			ans.add(root.data);
+			return true;
+		}
+		boolean l = findPathutil(root.left,ans,data);
+		if(l)
+		{
+			ans.add(root.data);
+			return true;
+		}
+		boolean r = findPathutil(root.right,ans,data);
+		if(r)
+		{
+			ans.add(root.data);
+			return true;
+		}
+		return false;
+	}
+	static boolean findPath(Node node,ArrayList<Integer> ans)
+	{
+		return findPathutil(root,ans,19);
+	}
+	public static void main(String[] args) 
+	{
+		ArrayList<Integer> ans = new ArrayList<>();
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(16);
+		root.right.right = new Node(9);
+		if(findPath(root,ans)==true);
+		{
+			Iterator<Integer> iter = ans.iterator();
+			while(iter.hasNext())
+			{
+				System.out.print(iter.next()+" ");
+			}
+		}
+		if(findPath(root,ans)==false)
+		{
+			System.out.println("No path found");
+		}
+	}
+}
