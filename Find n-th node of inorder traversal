@@ -1,0 +1,40 @@
+//Find n-th node of inorder traversal
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static void NthInorderUtil( Node node, int n,int count)  
+	{
+		if(node==null)
+			return;
+		if(count==1)
+			System.out.println(node.data);
+		NthInorderUtil(node.left,n,count+1);
+		NthInorderUtil(node.right,n,count+1);
+	}
+	static void NthInorder( Node root, int n)  
+	{
+		NthInorderUtil(root,n,1);
+	}
+	public static void main(String[] args) 
+	{
+		root = new Node(10);
+		root.left = new Node(20);
+		root.right = new Node(30);
+		root.left.left = new Node(40);
+		root.left.right = new Node(50);
+		NthInorder(root,4);
+	}
+}
