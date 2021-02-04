@@ -1,0 +1,55 @@
+Given a binary tree, print all root-to-leaf paths
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static void print(Node root,int path[], int pathLen)
+	{
+		if(root==null)
+			return;
+		path[pathLen] = root.data; 
+        pathLen++;
+		if(root.left==null && root.right==null)
+			printArray(path,pathLen);
+		else
+		{
+			print(root.left,path,pathLen);
+			print(root.right,path,pathLen);
+		}
+	}
+	static void printArray(int ints[], int len)  
+    { 
+        int i; 
+        for (i = 0; i < len; i++)  
+        { 
+            System.out.print(ints[i] + " "); 
+        } 
+        System.out.println(""); 
+    } 
+	public static void main(String[] args) 
+	{
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(16);
+		root.right.right = new Node(9);
+		int path[]= new int[1000];
+		print(root,path,0);
+	}
+}
