@@ -1,0 +1,56 @@
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static void levelorderbyline(Node node)
+	{
+		Queue<Node> q1 = new LinkedList<>();
+		Queue<Node> q2 = new LinkedList<>();
+		q1.add(node);
+		while(!q1.isEmpty() || !q2.isEmpty())
+		{
+			while(!q1.isEmpty())
+			{
+				Node temp = q1.remove();
+				System.out.print("This is q1: "+temp.data);
+				if(temp.left!=null)
+					q2.add(temp.left);
+				if(temp.right!=null)
+					q2.add(temp.right);
+			}
+			while(!q2.isEmpty())
+			{
+				Node temp = q2.remove();
+				System.out.print("This is q2: "+temp.data);
+				if(temp.left!=null)
+					q1.add(temp.left);
+				if(temp.right!=null)
+					q1.add(temp.right);
+			}
+			
+		}
+	}
+	public static void main(String[] args) 
+	{
+		root = new Node(25);  
+        root.left = new Node(20);  
+        root.right = new Node(30);  
+        root.left.left = new Node(18);  
+        root.left.right = new Node(22);  
+        root.right.left = new Node(24);  
+        root.right.right = new Node(32);
+        levelorderbyline(root);
+	}
+}
