@@ -15,18 +15,20 @@ class Node
 public class BinaryTree 
 {
 	static Node root;
-	static void NthInorderUtil( Node node, int n,int count)  
+	static int count=0;
+	static void NthInorderUtil( Node node, int n)  
 	{
 		if(node==null)
 			return;
-		if(count==1)
-			System.out.println(node.data);
-		NthInorderUtil(node.left,n,count+1);
-		NthInorderUtil(node.right,n,count+1);
+                count++;
+		NthInorderUtil(node.left,n);
+	        if(count==n)
+		     System.out.println(node.data);
+		NthInorderUtil(node.right,n);
 	}
 	static void NthInorder( Node root, int n)  
 	{
-		NthInorderUtil(root,n,1);
+		NthInorderUtil(root,n);
 	}
 	public static void main(String[] args) 
 	{
