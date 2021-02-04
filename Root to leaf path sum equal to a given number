@@ -1,0 +1,50 @@
+//Root to leaf path sum equal to a given number
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	public static void haspathsumutil(Node node,int sum,String psf,int target)
+	{
+		if(node==null)
+			return;
+		else if((node.left == null &&node.right==null))
+		{
+			target=target+node.data;
+			if(target==sum)
+			{
+				System.out.println(psf+node.data);
+			}
+			return;
+		}
+		haspathsumutil(node.left,sum,psf+node.data+" ",target+node.data);
+		haspathsumutil(node.right,sum,psf+node.data+" ",target+node.data);
+	}
+	public static void haspathsum(Node root,int sum)
+	{
+		haspathsumutil(root,sum,"",0);
+	}
+	public static void main(String[] args)
+	{
+		root = new Node(13);
+		root.left = new Node(12);
+		root.right = new Node(10);
+		root.left.left = new Node(4);
+		root.left.right = new Node(19);
+		root.right.left = new Node(2);
+		root.right.right = new Node(9);
+		int path[]= new int[1000];
+		haspathsum(root,25);
+	}
+
+}
