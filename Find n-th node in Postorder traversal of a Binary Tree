@@ -1,0 +1,47 @@
+//Find n-th node in Postorder traversal of a Binary Tree
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static int count=0;
+	static void NthInorderUtil( Node node, int n)  
+	{
+		if(node==null)
+			return;
+		if(count<=n)
+		{
+			NthInorderUtil(node.left,n);	
+			NthInorderUtil(node.right,n);
+			count++;
+			if(count==n)
+				System.out.println(node.data);
+		}
+	}
+	static void NthInorder( Node root, int n)  
+	{
+		NthInorderUtil(root,6);
+	}
+	public static void main(String[] args) 
+	{
+		 root = new Node(25);  
+	        root.left = new Node(20);  
+	        root.right = new Node(30);  
+	        root.left.left = new Node(18);  
+	        root.left.right = new Node(22);  
+	        root.right.left = new Node(24);  
+	        root.right.right = new Node(32);
+		NthInorder(root,6);
+	}
+}
