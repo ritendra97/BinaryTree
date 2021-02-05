@@ -1,0 +1,70 @@
+//Reverse alternate levels of a perfect binary tree
+import java.util.*;
+class Node { 
+	  
+    char data; 
+    Node left, right; 
+  
+    Node(char item) { 
+        data = item; 
+        left = right = null; 
+    } 
+} 
+public class BinaryTree 
+{
+	static Node root;
+	static Stack<Character> st = new Stack<>();
+	public static void storealternate(Node node,int level)
+	{
+		if(node == null)
+			return;
+		storealternate(node.left,level+1);
+		if(level%2!=0)
+			st.push(node.data);
+		storealternate(node.right,level+1);
+	}
+	public static void modifiedalternate(Node node,int level1)
+	{
+		if(node == null)
+			return;
+		modifiedalternate(node.left,level1+1);
+		if(level1%2!=0)
+			node.data =st.pop();
+		modifiedalternate(node.right,level1+1);
+	}
+	public static void reverseAlternate(Node node)  
+    {
+		storealternate(node,0);
+		modifiedalternate(node,0);
+    }
+	static void inorder(Node node)
+	{
+		if(node==null)
+			return;		
+		inorder(node.left);
+		System.out.print(node.data+" ");
+		inorder(node.right);
+	}
+	public static void main(String[] args) 
+	{ 
+	      root = new Node('a'); 
+	      root.left = new Node('b'); 
+	      root.right = new Node('c'); 
+	      root.left.left = new Node('d'); 
+	      root.left.right = new Node('e'); 
+	      root.right.left = new Node('f'); 
+	      root.right.right = new Node('g'); 
+	      root.left.left.left = new Node('h'); 
+	      root.left.left.right = new Node('i'); 
+	      root.left.right.left = new Node('j'); 
+	      root.left.right.right = new Node('k'); 
+	      root.right.left.left = new Node('l'); 
+	      root.right.left.right = new Node('m'); 
+	      root.right.right.left = new Node('n'); 
+	      root.right.right.right = new Node('o');
+	      inorder(root);
+	      System.out.println();
+	      reverseAlternate(root);
+	      inorder(root);
+	}
+}
