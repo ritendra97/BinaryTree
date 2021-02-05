@@ -20,8 +20,10 @@ public class BinaryTree
 	{
 		if(node!=null)
 		{
-			printleft(node);
-			printleaves(node);
+			System.out.print(node.data+" ");
+			printleft(node.left);
+			printleaves(node.left);
+			printleaves(node.right);
 			printright(node.right);
 		}
 	}
