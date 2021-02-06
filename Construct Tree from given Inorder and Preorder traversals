@@ -1,4 +1,5 @@
 //Construct Tree from given Inorder and Preorder traversals
+// This is n*n time complexity solution
 import java.util.*;
 class Node
 {
@@ -35,6 +36,61 @@ public class BinaryTree
 	          return i;            
 	    return i;
 	}
+	static void inorder(Node temp)
+    {
+        if (temp == null)
+            return;
+        inorder(temp.left);
+        System.out.print(temp.data + " ");
+        inorder(temp.right);
+    }
+	public static void main(String[] args) 
+	{
+		int in[] = {4, 2, 5, 1, 3, 6};
+		int pre[] = {1, 2, 4, 5, 3, 6};
+		Node root = constructbinary(in,pre,0,pre.length-1);
+		inorder(root);
+	}
+}
+//This is O(n) Time complexity code because here we have used hashmap insted of array.
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static int preindex=0;
+	static HashMap<Integer,Integer> map = new HashMap<>();
+	static Node constructbinary(int[] in,int pre[],int start,int end)
+	{
+       for(int i=0;i<in.length;i++)
+       {
+    	   map.put(in[i],i);
+       }
+       return constructbinaryutil(in,pre,start,end);
+	}
+	static  Node constructbinaryutil(int[] in, int[] pre, int inStrt, int inEnd)
+	{
+		if(inStrt>inEnd)
+			return null;
+		Node root = new Node(pre[preindex++]);
+		int index = map.get(pre[preindex-1]);
+		if(inStrt==inEnd)
+			return root;
+		root.left=constructbinaryutil(in,pre,inStrt,index-1);
+		root.right=constructbinaryutil(in,pre,index+1,inEnd);
+		return root;
+	}
+	
 	static void inorder(Node temp)
     {
         if (temp == null)
