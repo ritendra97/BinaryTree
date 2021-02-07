@@ -139,3 +139,4 @@ public class BinaryTree
         leftView(root);
 	}
 }
+// the above solution shows the recursion view of left view same do the for right view also
