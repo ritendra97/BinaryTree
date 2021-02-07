@@ -1,0 +1,78 @@
+//Convert a Binary Tree to a Circular Doubly Link List
+class ListNode
+{
+	int data;
+	ListNode next;
+	ListNode prev;
+	ListNode(int data)
+	{
+		this.data=data;
+		this.next=null;
+		this.prev=null;
+	}
+}
+class BinaryNode
+{
+	int data;
+	BinaryNode left;
+	BinaryNode right;
+	BinaryNode(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static ListNode head=null;
+	static ListNode temp;
+	static BinaryNode root;
+	public static void push(int data)
+	{
+		ListNode new_node = new ListNode(data);
+		if(head==null)
+		{
+			head=temp=new_node;
+			head.next=head;
+			head.prev=head;
+		}
+		else
+		{
+			temp.next=new_node;
+			new_node.prev=temp;
+			new_node.next = head;
+			head.prev=new_node;
+			temp=new_node;
+		}
+	}
+	public static ListNode conversionbinarytolist(BinaryNode node)
+	{
+		if(node == null)
+			return null;
+		conversionbinarytolist(node.left);
+		push(node.data);
+		conversionbinarytolist(node.right);
+		return head;
+	}
+	static void display() 
+	{ 
+	    ListNode temp = head; 
+	    while (temp.next != head) 
+	    { 
+	        System.out.print(temp.data+" "); 
+	        temp = temp.next; 
+	    }  
+	} 
+	public static void main(String[] args) 
+	{
+		root = new BinaryNode(10);
+		root.left = new BinaryNode(12);
+		root.right = new BinaryNode(15);
+		root.left.left = new BinaryNode(25);
+		root.left.right = new BinaryNode(30);
+		root.right.left = new BinaryNode(36);
+		ListNode ans = conversionbinarytolist(root);
+		display();
+	}
+}
