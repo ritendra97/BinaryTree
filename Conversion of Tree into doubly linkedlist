@@ -1,0 +1,77 @@
+import java.util.*;
+class ListNode
+{
+	int data;
+	ListNode next;
+	ListNode prev;
+	ListNode(int data)
+	{
+		this.data=data;
+		this.next=null;
+		this.prev=null;
+	}
+}
+class BinaryNode
+{
+	int data;
+	BinaryNode left;
+	BinaryNode right;
+	BinaryNode(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static ListNode head=null;
+	static ListNode temp;
+	static BinaryNode root;
+	public static void push(int data)
+	{
+		ListNode new_node = new ListNode(data);
+		if(head==null)
+		{
+			head=new_node;
+			head.next=null;
+			head.prev=null;
+			temp = head;
+			temp=new_node;
+		}
+		else
+		{
+			temp.next=new_node;
+			new_node.prev=temp;
+			temp=new_node;
+		}
+	}
+	public static ListNode conversionbinarytolist(BinaryNode node)
+	{
+		if(node == null)
+			return null;
+		conversionbinarytolist(node.left);
+		push(node.data);
+		conversionbinarytolist(node.right);
+		return head;
+	}
+	public static void printList(ListNode node) 
+    {
+        while (node != null) 
+        {
+            System.out.print(node.data + " ");
+            node = node.next;
+        }
+    }
+	public static void main(String[] args) 
+	{
+		root = new BinaryNode(10);
+		root.left = new BinaryNode(12);
+		root.right = new BinaryNode(15);
+		root.left.left = new BinaryNode(25);
+		root.left.right = new BinaryNode(30);
+		root.right.left = new BinaryNode(36);
+		ListNode ans = conversionbinarytolist(root);
+		printList(ans);
+	}
+}
