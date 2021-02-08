@@ -1,0 +1,114 @@
+//How to determine if a binary tree is height-balanced?
+// Below is the N*2 solution i am trying to optimize it.
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	public static int height(Node node)
+	{
+		if(node==null)
+			return -1;
+		int l_h=height(node.left);
+		int r_h=height(node.right);
+		int h = Math.max(l_h, r_h)+1;
+		return h;
+	}
+	public static boolean checkedbalanced(Node node)
+	{
+		if (node==null)
+			return true;
+		int l=height(node.left);
+		int r=height(node.right);
+		if(Math.abs(l-r)<=1)
+			return true;
+		checkedbalanced(node.left);
+		checkedbalanced(node.right);
+		return false;
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree(); 
+		tree.root = new Node(1); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(3); 
+        tree.root.left.left = new Node(4); 
+        tree.root.left.right = new Node(5); 
+        tree.root.right.right = new Node(6); 
+        tree.root.left.left.left = new Node(7); 
+  
+        if (tree.checkedbalanced(tree.root)) 
+            System.out.println("Tree is balanced"); 
+        else
+            System.out.println("Tree is not balanced");
+	}
+}
+// this belo solution is optimized solution
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+class Height
+{
+	int height =0;
+}
+public class BinaryTree 
+{
+	static Node root;
+	public static boolean checkedbalancedutil(Node node,Height height)
+	{
+		if(node==null)
+		{
+			height.height=0;
+			return true; 
+		}
+		Height lheight = new Height();
+		Height rheight = new Height();
+		boolean l = checkedbalancedutil(node.left,lheight);
+		boolean r = checkedbalancedutil(node.right,lheight);
+		int lh = lheight.height, rh = rheight.height; 
+        height.height = (lh > rh ? lh : rh) + 1; 
+		if(Math.abs(lh-rh)>=1)
+			return false;
+		return l&r;
+	}
+	public static boolean checkedbalanced(Node node)
+	{
+		Height height = new Height();
+		height.height=0;
+		return checkedbalancedutil(node,height);
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree(); 
+		tree.root = new Node(1); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(3); 
+        tree.root.left.left = new Node(4); 
+        tree.root.left.right = new Node(5); 
+        tree.root.left.left.left = new Node(8); 
+  
+        if (tree.checkedbalanced(tree.root)) 
+            System.out.println("Tree is balanced"); 
+        else
+            System.out.println("Tree is not balanced");
+	}
+}
