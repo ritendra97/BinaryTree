@@ -1,0 +1,111 @@
+//Diameter of a Binary Tree
+//Below provided solution is with the time complexity of O(n*n)
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	Node root;
+	public int height(Node node)
+	{
+		if(node==null)
+			return 0;
+		int l_h=height(node.left);
+		int r_h=height(node.right);
+		int h = Math.max(l_h, r_h)+1;
+		return h;
+	}
+	int diameter(Node root) 
+    {
+        if(root==null)
+        {
+            return 0;
+        }
+        int l_d = diameter(root.left);
+        int r_d = diameter(root.right);
+        
+        int m_d  = height(root.left)+height(root.right)+1;
+        int f_d = Math.max(Math.max(l_d,r_d),m_d);
+        return f_d;
+    }
+    public static void main(String[] args)
+    {
+    	BinaryTree tree = new BinaryTree(); 
+         tree.root = new Node(1);
+         tree.root.left = new Node(2);
+         tree.root.right = new Node(3);
+         tree.root.left.left = new Node(4);
+         tree.root.left.right = new Node(5);
+        System.out.println(tree.diameter(tree.root));
+    }
+}
+// Below solution is optimized with O(n) hear i have called both the recursion at the smae time.
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+class pairdia
+{
+	int ht;
+	int dia;
+	pairdia(int ht,int dia)
+	{
+		this.ht=ht;
+		this.dia=dia;
+	}
+	pairdia()
+	{
+		
+	}
+}
+public class BinaryTree 
+{
+	Node root;
+	pairdia diameter(Node root) 
+    {
+		if(root==null)
+		{
+			pairdia bp = new pairdia();
+			bp.ht=0;
+			bp.dia=0;
+			return bp;
+		}
+       pairdia l_d = diameter(root.left);
+       pairdia r_d = diameter(root.right);
+       pairdia mp = new pairdia();
+       mp.ht = Math.max(l_d.ht,r_d.ht)+1;
+       int hes = l_d.ht+r_d.ht+1;
+       mp.dia = Math.max(hes, Math.max(l_d.dia, r_d.dia));
+       return mp;
+    }
+    public static void main(String[] args)
+    {
+    	BinaryTree tree = new BinaryTree(); 
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        pairdia ans = tree.diameter(tree.root);
+        System.out.println(ans.dia);
+    }
+}
