@@ -1,4 +1,4 @@
-//Root to leaf path sum equal to a given number
+//Root to leaf path sum equal to a given number please have a look in second below code
 class Node
 {
 	int data;
@@ -46,5 +46,20 @@ public class BinaryTree
 		int path[]= new int[1000];
 		haspathsum(root,25);
 	}
+
+}
+bool hasPathSum(Node *root, int sum) {
+
+if(root==NULL )
+return false;
+// if(sum < 0)
+// return false;
+
+int subSum = (sum - root->data);
+
+if((root->left == NULL && root->right ==NULL) && subSum == 0)
+        return true;
+
+return (hasPathSum(root->left , subSum) || hasPathSum(root->right , subSum));
 
 }
