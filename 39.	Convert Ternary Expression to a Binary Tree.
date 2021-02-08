@@ -1,0 +1,65 @@
+//39.	Convert Ternary Expression to a Binary Tree.
+import java.util.*;
+class Node
+{
+	char data;
+	Node left;
+	Node right;
+	Node(char data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	public static Node buildbyternaryexpression(String str)
+	{
+		Stack<Node> st = new Stack<>();
+		Node root = new Node(str.charAt(0));
+		st.push(root);
+		int i=1;
+		while(i<str.length())
+		{
+			if(str.charAt(i)=='?')
+			{
+				i++;
+				if(st.peek().left==null)
+				{
+					st.peek().left=new Node(str.charAt(i));
+				}
+				st.push(st.peek().left);
+			}
+			else if(str.charAt(i)==':')
+			{
+				i++;
+				st.pop();
+				while(st.peek().right!=null)
+				{
+					st.pop();
+					
+				}
+				st.peek().right=new Node(str.charAt(i));
+				st.push(st.peek().right);
+			}
+			i++;
+		}
+		return root;
+	}
+	static void inorder(Node temp)
+    {
+        if (temp == null)
+            return;
+        System.out.print(temp.data + " ");
+        inorder(temp.left);
+        
+        inorder(temp.right);
+    }
+	public static void main(String[] args) 
+	{
+		String str = "a?b?c:d:e?f?g?h:i:c";
+		Node ans = buildbyternaryexpression(str);
+		inorder(ans);
+	}
+}
