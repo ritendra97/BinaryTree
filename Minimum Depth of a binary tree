@@ -1,0 +1,42 @@
+import java.util.*;
+class Node  
+{ 
+    int data; 
+    Node left, right; 
+  
+    public Node(int data) 
+    { 
+        this.data = data; 
+        this.left = this.right = null; 
+    } 
+}
+public class BinaryTree 
+{
+	static int max = Integer.MAX_VALUE;
+	static int minDepthUtil(Node root,int l)
+	{
+		if(root==null)
+	    	 return 0;
+	     if(root.left==null && root.right==null)
+	     {
+	    	 if(max>l)
+	    		 max=l;
+	     }
+	     minDepthUtil(root.left,l+1);
+	     minDepthUtil(root.right,l+1);
+	     return max;
+	}
+	static int minDepth(Node root)
+	{
+	     int ans = minDepthUtil(root,1);
+	     return ans;
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1); 
+	    root.left = new Node(2); 
+	    root.right = new Node(3); 
+	    root.left.left = new Node(4); 
+	    System.out.println(minDepth(root));
+	}
+}
