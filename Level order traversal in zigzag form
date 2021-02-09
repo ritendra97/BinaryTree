@@ -1,0 +1,56 @@
+//Level order traversal in zigzag form
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node (int data)
+	{
+		this.data=data;
+	}
+}
+public class TreeZigZag 
+{
+	Node root;
+	Stack<Node> s1 = new Stack<>();
+	Stack<Node> s2 = new Stack<>();
+	Vector<Integer> v = new Vector<>();
+	public void traverse(Node root)
+	{
+		s1.push(root);
+		while(!s1.isEmpty() || !s2.isEmpty())
+		{
+			while(!s1.isEmpty())
+			{
+				Node x =s1.pop();
+				System.out.println(x.data);
+				if(x.left!=null)  
+				    s2.push(x.left);
+				if(x.right!=null)
+			     	s2.push(x.right);
+			}
+			while(!s2.isEmpty())
+			{
+				Node y = s2.pop();
+				System.out.println(y.data);
+				if(y.right!=null)
+				    s1.push(y.right);
+				if(y.left!=null)
+				    s1.push(y.left);
+			}
+		}
+	}
+	public static void main(String[] args) 
+	{
+		TreeZigZag t = new TreeZigZag();
+		t.root=new Node(1);
+		t.root.left=new Node(2);
+		t.root.right=new Node(3);
+		t.root.left.left=new Node(7);
+		t.root.left.right=new Node(6);
+		t.root.right.left=new Node(5);
+		t.root.right.right=new Node(4);
+		t.traverse(t.root);
+	}
+}
