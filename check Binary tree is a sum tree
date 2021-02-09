@@ -1,0 +1,74 @@
+//check Binary tree is a sum tree
+
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	Node root;
+	/*
+	int sum(Node node)
+	{
+		if(node==null)
+			return 0;
+		int l_sum = sum(node.left);
+		int r_sum = sum(node.right);
+		int t_sum = l_sum+r_sum+node.data;
+		return t_sum;
+	}
+	boolean isSumTree(Node root)
+	{
+		if(root == null || (root.left == null && root.right == null))
+        {
+            return true;
+        }
+		int sum1 = sum(root.left);
+		int sum2 = sum(root.right);
+		if(sum1+sum2==root.data && isSumTree(root.left)==true && isSumTree(root.right)==true)
+			return true;
+		return false;
+	}*/
+	//below O(n) approach
+	boolean flag = true;
+	int isSumTreeUtil(Node root)
+	{
+		if(root==null)
+			return 0;
+		if(root.left==null && root.right==null)
+			return root.data;
+		int l_s = isSumTreeUtil(root.left);
+		int r_s = isSumTreeUtil(root.right);
+		if(root.data!=l_s+r_s)
+		{
+			flag=false;
+		}
+		return l_s+r_s+root.data;
+	}
+	boolean isSumTree(Node root)
+	{
+		isSumTreeUtil(root);
+		if(flag)
+			return true;
+		else 
+			return false;
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree();
+        tree.root = new Node(80);
+        tree.root.left = new Node(20);
+        tree.root.right = new Node(40);
+        tree.root.left.left = new Node(10);
+        tree.root.left.right = new Node(10);
+        System.out.println(tree.isSumTree(tree.root));
+	}
+}
