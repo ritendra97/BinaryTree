@@ -1,0 +1,60 @@
+//Get Level of a node in a Binary Tree
+class Solution
+{
+    /* Returns level of given data value */
+    int getLevel(Node node, int data)  
+    { 
+        int size=0;
+        int height=0;
+        Queue<Node> q = new LinkedList<>();
+		q.add(node);
+		while(true)
+		{
+			size=q.size();
+			if(size==0)
+				break;
+			height++;
+			while(size>0)
+			{
+				Node temp = q.remove();
+				if(data==temp.data)
+				{
+				    return height;
+				}
+				if(temp.left!=null)
+					q.add(temp.left);
+				if(temp.right!=null)
+					q.add(temp.right);
+				size--;
+			}
+		}
+		return 0;
+    } 
+
+}
+// Below space optimized solution
+class Solution
+{
+    /* Returns level of given data value */
+    int ans=0;
+    int getLevelUtil(Node node, int data,int l)  
+    { 
+        if(node==null)
+        {
+            return 0;
+        }
+        if(node.data==data)
+        {
+            ans = l;
+        }
+        getLevelUtil(node.left,data,l+1);
+        getLevelUtil(node.right,data,l+1);
+        return ans;
+    }
+    int getLevel(Node node, int data)  
+    { 
+        int ans = getLevelUtil(node,data,1);
+        return ans;
+    } 
+
+}
