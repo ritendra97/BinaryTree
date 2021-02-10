@@ -49,3 +49,50 @@ public class BinaryTree
         tree.printSingles(tree.root);
 	}
 }
+// Recursion method 
+import java.util.*;
+class Node 
+{
+    int data;
+    Node left, right;
+ 
+    Node(int item) 
+    {
+        data = item;
+        left = right = null;
+    }
+}
+public class BinaryTree 
+{
+	Node root;
+	void printSinglesUtil(Node node,Node parent)
+	{
+		if(node ==null)
+			return ;
+		if(parent!=null && parent.left==node && parent.right==null)
+		{
+			System.out.println(node.data);
+		}
+		else if(parent!=null && parent.right==node && parent.left==null)
+		{
+			System.out.println(node.data);
+		}
+		printSinglesUtil(node.left,node);
+		printSinglesUtil(node.right,node);
+    }
+	void printSingles(Node node)
+	{
+		printSinglesUtil(node,node);
+    }
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.right = new Node(4);
+        tree.root.right.left = new Node(5);
+        tree.root.right.left.right = new Node(6);
+        tree.printSingles(tree.root);
+	}
+}
