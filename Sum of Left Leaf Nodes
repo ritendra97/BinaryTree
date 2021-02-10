@@ -1,0 +1,29 @@
+Sum of Left Leaf Nodes 
+lass Solution
+{
+    class Sum 
+    {
+       int sum = 0;
+    }
+    void leftLeavesSumRec(Node node, boolean isleft, Sum summ) 
+    {
+        if (node == null)
+            return;
+  
+        // Check whether this node is a leaf node and is left.
+        if (node.left == null && node.right == null && isleft)
+            summ.sum = summ.sum + node.data;
+  
+        // Pass true for left and false for right
+        leftLeavesSumRec(node.left, true, summ);
+        leftLeavesSumRec(node.right, false, summ);
+    }
+  
+    public int leftLeavesSum(Node root) 
+    {
+       Sum suum = new Sum();
+        leftLeavesSumRec(root, false, suum);
+  
+        return suum.sum;
+    } 
+}
