@@ -1,0 +1,37 @@
+//Maximum Node Level
+// this is based on O(n) space utilization try to solve it in O(1) space
+class Tree
+{
+    // Return the level (0-indexed) with maximum number of nodes.
+    public static int maxNodeLevel(Node root)
+    {
+        int size=0;
+        int max = Integer.MIN_VALUE;
+        int height=0;
+        int ans=0;
+        Queue<Node> q = new LinkedList<>();
+		q.add(root);
+		while(true)
+		{
+			size=q.size();
+			if(max<size)
+			{
+			    max=size;
+			    ans=height;
+			}
+			if(size==0)
+				break;
+			height++;
+			while(size>0)
+			{
+				Node temp = q.remove();
+				if(temp.left!=null)
+					q.add(temp.left);
+				if(temp.right!=null)
+					q.add(temp.right);
+				size--;
+			}
+		}
+		return ans;
+    }
+}
