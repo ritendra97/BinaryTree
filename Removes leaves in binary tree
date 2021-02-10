@@ -1,0 +1,60 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Node 
+{
+    int data;
+    Node left, right;
+ 
+    Node(int item) 
+    {
+        data = item;
+        left = right = null;
+    }
+}
+public class BinaryTree 
+{
+	Node root;
+	public static Node removeleaves(Node root)
+	{
+		if(root==null)
+			return null;
+		if(root.left==null && root.right==null)
+			return null;
+		root.left=removeleaves(root.left);
+		root.right=removeleaves(root.right);
+		return root;
+	}
+	static void printLevelOrder(Node node)
+	{
+		 Queue<Node> queue = new LinkedList<Node>();
+	     queue.add(node);
+	     while (!queue.isEmpty()) 
+	     {
+	         Node tempNode = queue.poll();
+	         System.out.print(tempNode.data + " ");
+	         if (tempNode.left != null) 
+	         {
+	             queue.add(tempNode.left);
+	         }
+	         if (tempNode.right != null) 
+	         {
+	             queue.add(tempNode.right);
+	         }
+	     }
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.right = new Node(4);
+        tree.root.right.left = new Node(5);
+        tree.root.right.left.right = new Node(6);
+        printLevelOrder(tree.root);
+        Node ans = removeleaves(tree.root);
+        System.out.println();
+        printLevelOrder(tree.root);
+	}
+}
