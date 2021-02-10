@@ -1,0 +1,65 @@
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+	}
+}
+public class BST 
+{
+	public static void extractKeys(Node root, Set<Integer> set)
+    {
+		if (root == null) {
+            return;
+        }
+ 
+        extractKeys(root.left, set);
+        set.add(root.data);
+        extractKeys(root.right, set);
+    }
+	public static void convertToBST(Node root, Iterator<Integer> it)
+    {
+		 if (root == null) {
+	            return;
+	        }
+	 
+	        convertToBST(root.left, it);
+	        root.data = it.next();
+	        convertToBST(root.right, it);
+    }
+	 public static Node binaryTreeToBST(Node root)
+    {
+		Set<Integer> set = new  TreeSet<>();
+		extractKeys(root,set);
+		Iterator<Integer> it = set.iterator();
+		while(it.hasNext())
+		{
+			convertToBST(root,it);
+		}
+		return root;
+    }
+	static void inorder(Node node)
+	{
+		if(node==null)
+			return;
+		inorder(node.left);
+		System.out.print(node.data+" ");
+		inorder(node.right);
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(10);
+		root.left=new Node(2);
+		root.right = new Node(7);
+		root.left.left= new Node(8);
+		root.left.right = new Node(4);
+		inorder(root);
+		System.out.println();
+		binaryTreeToBST(root);
+		inorder(root);
+	}
+}
