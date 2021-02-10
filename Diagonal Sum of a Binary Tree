@@ -1,0 +1,66 @@
+//Diagonal Sum of a Binary Tree
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+class Pair
+{
+	Node d;
+	int address;
+	Pair(Node d, int address)
+	{
+		this.d = d;
+		this.address= address;
+	}
+}
+public class BinaryTree 
+{
+	static Node root;
+	static ArrayList <Integer> a = new ArrayList <Integer>();
+	static HashMap<Integer,Integer> map = new HashMap<>();
+	public static ArrayList <Integer> diagonalSum(Node root) 
+    {
+		Queue<Pair> q = new LinkedList<>();
+		q.add(new Pair(root,0));
+		while(!q.isEmpty())
+		{
+			Pair temp = q.remove();
+			if(!map.containsKey(temp.address))
+				 map.put(temp.address, 0);
+			while(temp.d!=null)
+			{
+				if(temp.d.left!=null)
+					q.add(new Pair(temp.d.left,temp.address+1));
+				if(map.containsKey(temp.address))
+					map.put(temp.address, map.getOrDefault(temp.address,0)+temp.d.data);
+				temp.d = temp.d.right;
+			}
+		}
+		for(Map.Entry<Integer,Integer> ans: map.entrySet())
+		{
+			a.add(ans.getValue());
+		}
+		return a;
+    }
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.right.left = new Node(5);
+        root.right.right = new Node(6);
+        root.right.left.left = new Node(7);
+        root.right.left.right = new Node(8);
+	     System.out.println(diagonalSum(root));
+	}
+}
