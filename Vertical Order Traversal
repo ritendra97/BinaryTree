@@ -46,7 +46,7 @@ public class VerticalOrder
 			map.put(hd,l);
 		}
 		getverticalorder(node.left,map,hd-1);
-		getverticalorder(node.right,map,hd-1);
+		getverticalorder(node.right,map,hd+1);
 	}
 	public static void main(String[] args) 
 	{
