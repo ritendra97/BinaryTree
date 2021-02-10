@@ -1,0 +1,44 @@
+//Vertical Order traversal sum
+class Tree
+{
+    void getverticalorder(Node node,TreeMap<Integer, ArrayList<Integer>> map,int hd)
+	{
+		if(node== null)
+			return;
+		if(map.get(hd)==null)
+		{
+			ArrayList<Integer> l = new ArrayList<>();
+			l.add(node.data);
+			map.put(hd, l);
+		}
+		else
+		{
+			ArrayList<Integer> l = map.get(hd);
+			l.add(node.data);
+			map.put(hd,l);
+		}
+		getverticalorder(node.left,map,hd-1);
+		getverticalorder(node.right,map,hd+1);
+	}
+    public ArrayList <Integer> verticalSum(Node root) 
+    {
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        if(root==null)
+			return null;
+        TreeMap<Integer, ArrayList<Integer>> map = new TreeMap<>();
+        
+        getverticalorder(root,map,0);
+        
+        for(Map.Entry<Integer,ArrayList<Integer>> cm : map.entrySet())
+		{
+		    int sum=0;
+        	Iterator<Integer> iter = cm.getValue().iterator();
+        	while(iter.hasNext())
+        	{
+        	    sum=sum+iter.next();
+        	}
+        	ans.add(sum);
+		}
+		return ans;
+    }
+}
