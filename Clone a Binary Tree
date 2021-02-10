@@ -1,0 +1,54 @@
+//Clone a Binary Tree
+import java.util.*;
+class Node
+{
+	String data;
+	Node left;
+	Node right;
+	Node(String data, Node left, Node right)
+	{
+		this.data=data;
+		this.left=left;
+		this.right=right;
+	}
+}
+public class BinaryTree 
+{
+	public static Node clontree(Node root)
+	{
+		if(root==null)
+			return null;
+		Node lcr = clontree(root.left);
+		Node rcr = clontree(root.right);
+		Node nn = new Node(root.data,lcr,rcr);
+		root.left = nn;
+		root.right = rcr;
+		return root;
+	}
+	static void printLevelOrder(Node node)
+	{
+		 Queue<Node> queue = new LinkedList<Node>();
+	     queue.add(node);
+	     while (!queue.isEmpty()) 
+	     {
+	         Node tempNode = queue.poll();
+	         System.out.print(tempNode.data + " ");
+	         if (tempNode.left != null) 
+	         {
+	             queue.add(tempNode.left);
+	         }
+	         if (tempNode.right != null) 
+	         {
+	             queue.add(tempNode.right);
+	         }
+	     }
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node("a",null,null);
+        root.left = new Node("b",null,null);
+        root.right = new Node("c",null,null);
+        Node ans = clontree(root);
+        printLevelOrder(ans);
+	}
+}
