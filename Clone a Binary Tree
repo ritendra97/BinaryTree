@@ -25,6 +25,16 @@ public class BinaryTree
 		root.right = rcr;
 		return root;
 	}
+	public static Node Transformbackclontree(Node root)
+	{
+		if(root==null)
+			return null;
+		Node lcr = Transformbackclontree(root.left.left);
+		Node rcr = Transformbackclontree(root.right);
+		root.left = lcr;
+		root.right = rcr;
+		return root;
+	}
 	static void printLevelOrder(Node node)
 	{
 		 Queue<Node> queue = new LinkedList<Node>();
