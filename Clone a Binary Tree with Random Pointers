@@ -1,0 +1,72 @@
+Clone a Binary Tree with Random Pointers
+import java.util.*;
+class Node
+{
+	int data;
+	Node left,right,random;
+	Node(int d)
+	{
+		data=d;
+		left=null;
+		right=null;
+		random=null;
+	}	
+}
+public class BinaryTree 
+{
+	public static Node copyleftrightNode(Node oriNode,HashMap<Node,Node> map)
+	{
+		if(oriNode==null)
+			return null;
+		Node cloneNode = new Node(oriNode.data);
+		map.put(oriNode, cloneNode);
+		cloneNode.left = copyleftrightNode(oriNode.left,map);
+		cloneNode.right= copyleftrightNode(oriNode.right,map);
+		return cloneNode;
+	}
+	public static void copyrandom(Node oriNode,Node cloneNode,HashMap<Node,Node> map)
+	{
+		if(oriNode==null)
+			return;
+		map.get(oriNode).random = oriNode.random;
+		copyrandom(oriNode.left,cloneNode,map);
+		copyrandom(oriNode.right,cloneNode,map);
+	}
+	public static Node cloneTree(Node tree)
+	{
+		HashMap<Node,Node> map = new HashMap<>();
+		Node newtree = copyleftrightNode(tree,map);
+		copyrandom(tree,newtree,map);
+		return newtree;
+	}
+	public static void printInorder(Node node) 
+	{ 
+	    if (node == null) 
+	        return; 
+	    printInorder(node.left);
+	    System.out.print("["+node.data+" "); 
+	    if (node.random == null) 
+	        System.out.print("NULL], "); 
+	    else
+	    	System.out.print(node.random.data+ "], "); 
+	    printInorder(node.right); 
+	} 
+	public static void main(String[] args) 
+	{
+		 Node tree = new Node(1); 
+		 tree.left = new Node(2); 
+		 tree.right = new Node(3); 
+		 tree.left.left = new Node(4); 
+		 tree.left.right = new Node(5); 
+		 tree.random = tree.left.right; 
+		 tree.left.left.random = tree; 
+		 tree.left.right.random = tree.right;
+		 System.out.print("Inorder traversal of original binary tree is: \n");
+		 printInorder(tree);
+		 Node ans = cloneTree(tree);
+		 System.out.print("\nInorder traversal of cloned binary tree is: \n");
+		 printInorder(ans);
+		 
+	}
+
+}
