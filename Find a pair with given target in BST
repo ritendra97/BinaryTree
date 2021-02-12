@@ -1,0 +1,62 @@
+//Find a pair with given target in BST 
+import java.util.ArrayList;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+	}
+}
+public class BST 
+{
+	static boolean checkpairexistutill(ArrayList<Integer> list,int sum)
+	{
+		int start=0;
+		int end = list.size()-1;
+		while(start<end)
+		{
+			int curr_sum = list.get(start)+list.get(end);
+			if(curr_sum==sum)
+				return true;
+			else if(curr_sum<sum)
+			{
+				start++;
+			}
+			else
+			{
+				end--;
+			}
+		}
+		return false;
+	}
+	static void inorder(Node node,ArrayList<Integer> list)
+	{
+		if(node==null)
+			return;
+		inorder(node.left,list);
+		list.add(node.data);
+		inorder(node.right,list);
+	}
+	static boolean checkpairexist(Node node,int sum)
+	{
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if(node==null)
+			return false;
+		inorder(node,list);
+		return checkpairexistutill(list,sum);
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(50);
+		root.left = new Node(30);
+		root.right = new Node(70);
+		root.left.left = new Node(20);
+		root.left.right = new Node(40);
+		root.right.left = new Node(60);
+		root.right.right = new Node(80);
+		System.out.println(checkpairexist(root,789));
+	}
+}
