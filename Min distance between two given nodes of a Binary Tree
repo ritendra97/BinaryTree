@@ -1,0 +1,72 @@
+//Min distance between two given nodes of a Binary Tree 
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+class pair
+{
+	boolean value;
+	int h;
+}
+public class BinaryTree 
+{
+	int count=0;
+	static Node root;
+	public static int  depth(Node root,int t,int h)
+	{	
+		if(root==null)
+			return -1;
+		if(root.data==t)
+			return h;
+		int dis = depth(root.left,t, h+1);
+		if(dis!=-1)
+			return dis;
+		dis = depth(root.right,t,h+1);
+		return dis;
+	}
+	public static Node lca(Node root, int n1,int n2)
+	{
+		if(root==null )
+			return null;
+		if(root.data == n1 || root.data == n2)
+		{
+			return root;
+		}
+		Node left_l=lca(root.left,n1,n2);
+		Node right_r=lca(root.right,n1,n2);
+		if(left_l!=null && right_r!=null)
+			return root;
+		if(left_l!=null)
+		    return left_l;
+		if(right_r!=null)
+		    return right_r;
+		return null;
+	}
+	public static int findDist(Node root, int a, int b) 
+    {
+		if(root==null)
+			return 0;
+		Node lowestcommonancestor = lca(root,a,b);
+		int d1 = depth(lowestcommonancestor,a,0);
+		int d2 = depth(lowestcommonancestor,b,0);
+		return d1+d2;
+		
+    }
+	public static void main(String[] args) 
+	{
+		 root = new Node(1);  
+	        root.left = new Node(2);  
+	        root.right = new Node(3);  
+	        
+	       System.out.println(findDist(root,2,3)); 
+	}
+}
