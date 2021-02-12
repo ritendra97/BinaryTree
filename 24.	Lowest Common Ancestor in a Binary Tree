@@ -18,6 +18,10 @@ class Tree
 		Node right_r=lca(root.right,n1,n2);
 		if(left_l!=null && right_r!=null)
 			return root;
-		return (left_l!=null)?left_l:right_r;
+		if(left_l!=null)
+		    return left_l;
+		if(right_r!=null)
+		    return right_r;
+		return null;
 	}
 }
