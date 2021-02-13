@@ -1,0 +1,60 @@
+Print Nodes having K leaves
+import java.util.ArrayList;
+
+import org.w3c.dom.Node;
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+    Node(int data)
+    {
+       this.data = data;
+       left=null;
+       right=null;
+    }
+} 
+public class BST 
+{
+	static ArrayList<Integer> ans = new ArrayList<Integer>();
+    static int count=0;
+    public static int btWithKleaves1(Node root, int k)
+    {
+    	if(root==null)
+    		return 0;
+    	if(root.left==null && root.right==null)
+    		return 1;
+    	int ls = btWithKleaves1(root.left,k);
+    	int rs = btWithKleaves1(root.right,k);
+    	int ts = ls+rs;
+    	if(ts==k)
+    		ans.add(root.data);
+    	return ts;
+    }
+    public static ArrayList<Integer> btWithKleaves(Node root, int k)
+    {
+    	btWithKleaves1(root,k);
+      if(ans.size()==0)
+      {
+          ans.add(-1);
+      }
+        return ans;
+    }
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		 Node root = new Node(1);  
+		    root.left     = new Node(2);  
+		    root.right     = new Node(4);  
+		    root.left.left = new Node(5);  
+		    root.left.right = new Node(6);  
+		    root.left.left.left = new Node(9);  
+		    root.left.left.right = new Node(10);  
+		    root.right.right = new Node(8);  
+		    root.right.left = new Node(7);  
+		    root.right.left.left = new Node(11);  
+		    root.right.left.right = new Node(12); 
+		    System.out.println(btWithKleaves(root,2));
+	}
+
+}
