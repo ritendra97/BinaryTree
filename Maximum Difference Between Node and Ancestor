@@ -1,0 +1,23 @@
+Maximum Difference Between Node and Ancestor
+int helper(Node root, int currmin, int currmax)
+    {
+        if(root==null)
+        {
+            return currmax-currmin;
+        }
+        currmax=Math.max(root.data,currmax);
+        currmin=Math.min(root.data,currmin);
+        
+        int l = helper(root.left,currmin,currmax);
+        int r = helper(root.right,currmin,currmax);
+        
+        return Math.max(l,r);
+    }
+    int maxDiff(Node root)
+    {
+        if(root==null)
+        {
+            return 0;
+        }
+        return helper(root,root.data,root.data);
+    }
