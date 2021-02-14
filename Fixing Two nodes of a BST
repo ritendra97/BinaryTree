@@ -1,88 +1,63 @@
-//Fixing Two nodes of a BST
-class Node
+class Sol
 {
-    int data;
-    Node left;
-    Node right;
-    Node(int data)
-    {
-       this.data = data;
-       left=null;
-       right=null;
-    }
-}
-public class BinaryTree 
-{
-	Node root;
-	Node prev;
+    Node prev;
 	Node first;
 	Node last;
 	Node middle;
 	public void correctBSTUtil(Node root)
-    {		
-		if(root!=null)
-		{
-			correctBSTUtil(root.left);
-			if(prev!=null)
-			{
-				if(prev.data<root.data)
-				{
-					if(first==null)
-					{
-						first= prev;
-						middle =root;
-					}
-					last=root;
-				}
-			}
-			prev=root;
-			correctBSTUtil(root.right);
-		}
-    }
-	public Node correctBST(Node root)
     {
-		prev=null;
-		first=null;
-		last=null;
-		middle=null;
-		if(root==null)
-			return null;
-		correctBSTUtil(root);
+         if( root != null ) 
+        { 
+            // Recur for the left subtree 
+            correctBSTUtil( root.left); 
+  
+            // If this node is smaller than 
+            // the previous node, it's  
+            // violating the BST rule. 
+            if (prev != null && root.data < 
+                                prev.data) 
+            { 
+                // If this is first violation, 
+                // mark these two nodes as 
+                // 'first' and 'middle' 
+                if (first == null) 
+                { 
+                    first = prev; 
+                    middle = root; 
+                } 
+  
+                // If this is second violation, 
+                // mark this node as last 
+                else
+                    last = root; 
+            } 
+  
+            // Mark this node as previous 
+            prev = root; 
+  
+            // Recur for the right subtree 
+            correctBSTUtil( root.right); 
+        } 
+    }
+    public Node correctBST(Node root)
+    {		
 		first = middle = last = prev = null; 
         correctBSTUtil( root ); 
+  
         if( first != null && last != null ) 
         { 
             int temp = first.data; 
             first.data = last.data; 
             last.data = temp;  
         } 
-        else if( first != null && middle !=null )  
+        else if( first != null && middle != 
+                                    null )  
         { 
             int temp = first.data; 
             first.data = middle.data; 
             middle.data = temp; 
         } 
-		return root;		
+		return root;
+				
     }
-	static void printInorder(Node node) 
-    { 
-        if (node == null) 
-            return; 
-        printInorder(node.left); 
-        System.out.print(node.data + " "); 
-        printInorder(node.right); 
-    }
-	public static void main(String[] args) 
-	{
-		BinaryTree tree = new BinaryTree();
-		tree.root = new Node(10); 
-        tree.root.left = new Node(5); 
-        tree.root.right = new Node(8); 
-        tree.root.left.left = new Node(2); 
-        tree.root.left.right = new Node(20);
-        printInorder(tree.root);
-        Node ans = tree.correctBST(tree.root);
-        printInorder(tree.root);
-        
-	}
 }
