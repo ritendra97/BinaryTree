@@ -1,0 +1,78 @@
+//Largest BST 
+import levelBinaryTree.Node;
+
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node (int data)
+	{
+		this.data=data;
+	}
+}
+class pair
+{
+	boolean isBST;
+	int size;
+	int max;
+	int min;
+	int ans;
+}
+public class BST 
+{
+	static int max = Integer.MIN_VALUE;
+	static Node root;
+	public static pair largestBst1(Node root)
+	{
+		pair bp = new pair();
+		if(root==null)
+		{
+			bp.size = 0;
+        	bp.min = Integer.MAX_VALUE;
+        	bp.max = Integer.MIN_VALUE;
+        	bp.ans=0;
+        	bp.isBST = true;
+        	return bp;
+		}
+		if (root.left == null && root.right == null)
+		{
+			bp.size = 1;
+        	bp.min = root.data;
+        	bp.max = root.data;
+        	bp.ans=1;
+        	bp.isBST = true;
+        	return bp;
+		}
+		pair l = largestBst1(root.left);
+		pair r = largestBst1(root.right);
+		pair mp = new pair();
+		mp.size = l.size+r.size+1;
+		if(l.isBST && r.isBST && (root.data>=l.max && root.data<=r.min))
+		{
+			mp.max = Math.max(Math.max(l.max, r.max), root.data);
+			mp.min = Math.min(Math.min(l.min, r.min), root.data);
+			mp.ans=mp.size;
+      // Here you got confused that time we return true because under current root all Have BST properties
+			mp.isBST=true;
+			return mp;
+		}
+		mp.ans = Math.max(l.ans, r.ans); 
+	    mp.isBST = false;
+		return mp;
+	}
+	static int largestBst(Node root)
+    {
+		pair ans=largestBst1(root);
+		return ans.ans;
+		
+    }
+	public static void main(String[] args)
+	{
+		root = new Node(60);
+		root.left = new Node(65);
+		root.right = new Node(70);
+		root.left.left = new Node(50);
+		System.out.println(largestBst(root));
+	}
+}
