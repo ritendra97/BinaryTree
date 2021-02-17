@@ -1,0 +1,61 @@
+//Maximum path sum between two leaf  Nodes
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+    Node(int data)
+    {
+       this.data = data;
+       left=null;
+       right=null;
+    }
+}
+class Res { 
+    public int val; 
+}
+public class BinaryTree 
+{
+	Node root;
+	static int  maxSumBetweenTwoLeaves=Integer.MIN_VALUE;
+	public static int maxPathSumUtil(Node root,Res result)
+	{
+		if(root==null)
+			return 0;
+		if(root.left==null && root.right==null)
+			return root.data;
+		int ls = maxPathSumUtil(root.left,result);
+		int rs = maxPathSumUtil(root.right,result);
+		if(root.left!=null && root.right!=null)
+		{
+			if(root.data+ls+rs>result.val)
+			{
+				result.val=root.data+ls+rs;
+			}
+			return Math.max(ls, rs)+root.data;
+		}
+		return root.left!=null?root.data+ls:root.data+rs;
+	}
+	public static int maxPathSum(Node root)
+	{
+		if(root==null)
+			return 0;
+		Res result = new Res();
+		result.val=Integer.MIN_VALUE;;
+		maxPathSumUtil(root,result);
+		return result.val;
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree();
+		tree.root = new Node(10); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(10); 
+        tree.root.left.left = new Node(20); 
+        tree.root.left.right = new Node(1); 
+        tree.root.right.right = new Node(-25); 
+        tree.root.right.right.left = new Node(3); 
+        tree.root.right.right.right = new Node(4);
+		System.out.println(maxPathSum(tree.root));
+	}
+}
