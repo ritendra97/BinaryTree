@@ -1,0 +1,66 @@
+//Print all k-sum paths in a binary tree
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static void printpath(ArrayList<Integer> ans,int j)
+	{
+		for(int i=j;i<ans.size();i++)
+		{
+			System.out.print(ans.get(i)+" ");
+			
+		}
+		System.out.println(); 
+	}
+	static void printKPathUtil(Node root, int k,ArrayList<Integer> ans)  
+	{
+		if(root==null)
+		{
+			return;
+		}
+		ans.add(root.data);
+		printKPathUtil(root.left,k,ans);
+		printKPathUtil(root.right,k,ans);
+		int f=0;
+		for(int i=ans.size()-1;i>=0;i--)
+		{
+			f+=ans.get(i);
+			if(f==k)
+				printpath(ans,i);
+		}
+		ans.remove(ans.size()-1);
+	}
+	public static void printKPath(Node root, int k)
+	{
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+		printKPathUtil(root,k,ans);
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);  
+	    root.left = new Node(3);  
+	    root.left.left = new Node(2);  
+	    root.left.right = new Node(1);  
+	    root.left.right.left = new Node(1);  
+	    root.right = new Node(-1);  
+	    root.right.left = new Node(4);  
+	    root.right.left.left = new Node(1);  
+	    root.right.left.right = new Node(2);  
+	    root.right.right = new Node(5);  
+	    root.right.right.right = new Node(2);  
+	  
+	    int k = 5;  
+	    printKPath(root, k); 
+	}
+}
