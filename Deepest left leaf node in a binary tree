@@ -1,0 +1,53 @@
+//Deepest left leaf node in a binary tree
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+	}
+}
+public class BST 
+{
+	static Node root;
+	static int max_height=Integer.MIN_VALUE;
+	static int result=0;
+	public static void solveUtil(Node node, Node parent,int h)
+	{
+        if(node == null)
+        	return;
+        if(parent.left!=null)
+        {
+        	if(parent.left.left==null && parent.left.right==null)
+            {
+            	if(max_height<h)
+            	{
+            		max_height=h;
+            		result = parent.left.data;
+            	}
+            }
+        }
+        solveUtil(node.left, node,h+1);
+        solveUtil(node.right, node,h+1);
+	}
+	public static void main(String[] args) 
+	{
+		BST tree = new BST(); 
+        tree.root = new Node(1); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(3); 
+        tree.root.left.left = new Node(4); 
+        tree.root.right.left = new Node(5); 
+        tree.root.right.right = new Node(6); 
+        tree.root.right.left.right = new Node(7); 
+        tree.root.right.right.right = new Node(8); 
+        tree.root.right.left.right.left = new Node(9); 
+        tree.root.right.right.right.right = new Node(10);
+        
+        solveUtil(root,root,0);
+        
+        System.out.println(result);
+	}
+}
