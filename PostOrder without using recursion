@@ -1,0 +1,55 @@
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTreeProblem 
+{
+	static Node root;
+	
+	public static void postorder(Node root)
+	{
+		Stack<Node> first = new Stack<Node>();
+		Stack<Node> second = new Stack<Node>();
+		
+		Node curr = root;
+		first.push(curr);
+		while(!first.isEmpty())
+		{
+			Node temp = first.pop();
+			second.push(temp);
+			
+			if(temp.left!=null)
+			{
+				first.push(temp.left);
+			}
+			if(temp.right!=null)
+			{
+				first.push(temp.right);
+			}
+		}
+		
+		while(!second.isEmpty())
+		{
+			System.out.println(second.pop().data);
+		}
+	}
+	public static void main(String[] args) {
+		BinaryTreeProblem tree = new BinaryTreeProblem();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        tree.postorder(tree.root);
+	}
+
+}
