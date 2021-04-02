@@ -1,0 +1,64 @@
+//Count subtrees that sum up to a given value x only using single recursive function
+import java.util.*;
+class Node
+{
+	int data;
+	Node left;
+	Node right;
+	Node(int data)
+	{
+		this.data=data;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class BinaryTree 
+{
+	static class INT
+	{
+	    int v;
+	    INT(int a)
+	    {
+	        v = a;
+	    }
+	}
+	static Node root;
+	static int sum=0;
+	
+	public static int sums(Node root,INT count,int x)
+	{
+		if(root==null)
+			return 0;
+		
+		int l = sums(root.left,count,x);
+		int r = sums(root.right,count,x);
+		
+		sum=l+r+root.data;
+		if(sum==x)
+			count.v++;
+		return sum;
+	}
+	static int count=0;
+	public static int answersum(Node root,int x)
+	{
+		if(root==null)
+			return 0;
+		INT count = new INT(0);
+		int ls= sums(root.left,count,x);
+		int rs=sums(root.right,count,x);
+		if ((ls + rs + root.data) == x)
+	        count.v++;
+		return count.v;
+	}
+	public static void main(String[] args) 
+	{ 
+		Node root = new Node(5);
+	    root.left = new Node(-10);
+	    root.right = new Node(3);
+	    root.left.left =  new Node(9);
+	    root.left.right = new Node(8);
+	    root.right.left = new Node(-4);
+	    root.right.right = new Node(7);
+        System.out.println(answersum(root,7));
+   	}
+}
