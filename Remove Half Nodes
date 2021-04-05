@@ -1,0 +1,64 @@
+//Remove Half Nodes
+import java.util.*;
+class Node { 
+	  
+   int data;
+   Node left, right; 
+  
+    Node(int i) { 
+        data = i; 
+        left = right = null; 
+    }
+    boolean isHalf()
+    {
+    	return this.left==null && this.right!=null || this.left!=null && this.right==null;
+    }
+}
+public class BinaryTree 
+{
+	Node root;
+	
+	public Node removeAll(Node node)
+	{
+		if(node==null)
+			return node;
+		
+		if(node.left==null && node.right==null)
+			return node;
+		
+		if(node.left==null)
+			return removeAll(node.right);
+		
+		if(node.right==null)
+			return removeAll(node.left);
+		
+		node.left  = removeAll(node.left);
+		node.right = removeAll(node.right);
+		
+		return node;
+	}
+	public static void inorder(Node node)
+	{
+		if(node==null)
+			return;		
+		inorder(node.left);
+		System.out.print(node.data+" ");
+		inorder(node.right);
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree tree = new BinaryTree();
+		
+        tree.root = new Node(2);
+        tree.root.left = new Node(7);
+        tree.root.right = new Node(5);
+        tree.root.left.right = new Node(6);
+        tree.root.left.right.left = new Node(1);
+        tree.root.left.right.right = new Node(11);
+        tree.root.right.right = new Node(9);
+        tree.root.right.right.left = new Node(4);
+	     
+        tree.removeAll(tree.root);
+        inorder(tree.root);
+    }
+}
