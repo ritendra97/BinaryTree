@@ -1,0 +1,52 @@
+//Find distance from root to given node in a binary tree
+import java.util.*;
+class Node 
+{
+    int data;
+    Node left, right;
+   
+    Node(int item) 
+    {
+        data = item;
+        left = right = null;
+    }
+}
+public class Practice 
+{
+	static int height=0;
+	Node root;
+	public static boolean solve(Node root,int x)
+	{
+		if(root==null)
+			return false;
+		
+		if(root.data==x)
+			return true;
+		
+		boolean l = solve(root.left,x);
+		if(l)
+		{
+			height++;
+		}
+		boolean r = solve(root.right,x);
+		if(r)
+		{
+			height++;
+		}
+		return l || r;
+	}
+    public static void main(String[] args) 
+	{
+    	Practice tree = new Practice();
+        tree.root = new Node(10);
+        tree.root.left = new Node(8);
+        tree.root.right = new Node(2);
+        tree.root.left.left = new Node(3);
+        tree.root.left.right = new Node(5);
+        tree.root.right.left = new Node(2);
+        
+        int x = 5;
+        System.out.println(tree.solve(tree.root,x));
+        System.out.println(height);
+    }
+}
