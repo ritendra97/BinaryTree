@@ -1,4 +1,51 @@
 import java.util.*;
+//Connect nodes at same level
+class BinaryNode 
+{ 	  
+   int data;
+   BinaryNode left, right; 
+   BinaryNode(int i) 
+   { 
+      data = i; 
+      left = right = null; 
+   }
+}
+public class BinaryTree 
+{
+	static BinaryNode root;
+	public static boolean checksumproperty(BinaryNode node)
+	{
+		if(node==null || (node.left==null && node.right==null))
+			return true;
+		int l = node.left!=null?node.left.data:0;
+		int r = node.right!=null?node.right.data:0;
+		
+		if(node.data!=l+r)
+			return false;
+		
+		boolean ls = checksumproperty(node.left);
+		boolean rs = checksumproperty(node.right);
+		if(ls==true && rs==true)
+			return true;
+		else if(ls==false && rs==true)
+			return false;
+		else if (ls==true && rs==false)
+			return false;
+		return false;
+	}
+	public static void main(String[] args) 
+	{
+		root = new BinaryNode(20);
+		root.left = new BinaryNode(10);
+		root.right = new BinaryNode(10);
+		root.left.left = new BinaryNode(5);
+		root.left.right = new BinaryNode(5);
+		root.right.right = new BinaryNode(10);
+		System.out.println(checksumproperty(root));
+    }
+}
+
+import java.util.*;
 class BinaryNode
 {
 	int data;
