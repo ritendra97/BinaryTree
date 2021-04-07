@@ -1,6 +1,65 @@
 //Diameter of a Binary Tree
 //Below provided solution is with the time complexity of O(n*n)
 import java.util.*;
+//Connect nodes at same level
+class Node 
+{ 	  
+   int data;
+   Node left, right; 
+   Node(int i) 
+   { 
+      data = i; 
+      left = right = null; 
+   }
+}
+public class BinaryTree 
+{
+	static Node root;
+	
+	static int max_height = Integer.MIN_VALUE;
+	
+	public static int height(Node node)
+	{
+		if(node==null)
+			return 0;
+		
+		int lh = height(node.left);
+		int rh = height(node.right);
+		
+		int th = Math.max(lh, rh)+1;
+		
+		return th;
+	}
+	public static int getdia(Node node)
+	{
+		if(node== null)
+			return 0;
+		
+		int lh = height(node.left);
+		int rh = height(node.right);
+		
+		int th = Math.max(lh,rh)+1;
+		
+		max_height = Math.max(lh+rh+1, max_height);
+		return max_height;
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.right = new Node(4);
+        root.right.left = new Node(5);
+        root.right.right = new Node(6);
+        root.right.left.left = new Node(7);
+        root.right.left.right = new Node(8);
+        
+		System.out.println(getdia(root));
+    }
+}
+
+//Below provided solution is with the time complexity of O(n*n)
+import java.util.*;
 class Node
 {
 	int data;
