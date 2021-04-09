@@ -1,0 +1,56 @@
+//Check for Balanced Tree(Balanced height tree)
+import java.util.*;
+//Connect nodes at same level
+class Node 
+{ 	  
+   int data;
+   Node left, right; 
+   Node(int i) 
+   { 
+      data = i; 
+      left = right = null; 
+   }
+}
+public class BinaryTree 
+{
+	static class pair
+	{
+		int h;
+		boolean flag;
+	}
+	public static pair height(Node root)
+	{
+		if(root==null)
+		{
+			pair bp = new pair();
+			bp.h =0;
+			bp.flag = true;
+			return bp;
+		}
+	
+		pair l = height(root.left);
+		pair r = height(root.right);
+		
+		pair mp = new pair();
+		
+		mp.h = (l.h>r.h?l.h:r.h)+1;
+		
+		if((l.h-r.h)>=2)
+			mp.flag = false;
+		return mp;
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.right = new Node(4);
+        root.right.left = new Node(5);
+        root.right.right = new Node(6);
+        root.right.left.left = new Node(7);
+        root.right.left.right = new Node(8);
+        
+        pair mp = height(root);
+		System.out.println(mp.flag);
+    }
+}
