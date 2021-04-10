@@ -152,7 +152,7 @@ public class BinaryTree
        pairdia r_d = diameter(root.right);
        pairdia mp = new pairdia();
        mp.ht = Math.max(l_d.ht,r_d.ht)+1;
-       int hes = l_d.ht+r_d.ht+1;
+       int hes = l_d.ht+r_d.ht+2;
        mp.dia = Math.max(hes, Math.max(l_d.dia, r_d.dia));
        return mp;
     }
