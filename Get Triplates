@@ -1,0 +1,44 @@
+//Get Triplates
+import java.util.*;
+class Node
+{
+  int data;
+  Node left, right;  
+  Node(int item)
+  {
+    data = item;
+    left = right = null;
+  }
+}
+public class BinaryTree 
+{
+	Node root;
+	static int count=0;
+	public static void get_triplateUtil(Node grandparent,Node parent,Node child,int x)
+	{
+		if(grandparent!=null && parent!=null && child!=null &&(grandparent.data+parent.data+child.data)>x)
+			count++;
+		
+		if(child ==null)
+			return;
+		get_triplateUtil(parent,child,child.left,x);
+		get_triplateUtil(parent,child,child.right,x);
+	}
+	public static void get_triplate(Node root,int x)
+	{
+		get_triplateUtil(root,root,root, x);
+		System.out.println(count);
+	}
+	public static void main(String[] args) 
+	{
+		BinaryTree  tree = new BinaryTree();
+	    tree.root = new Node(1);
+	    tree.root.left = new Node(2);
+	    tree.root.right = new Node(3);
+	    tree.root.right.left = new Node(5);
+	    tree.root.right.right = new Node(6);
+	    int x = 9;
+	    
+	    get_triplate(tree.root,x);
+	}
+}
