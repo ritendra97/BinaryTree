@@ -1,0 +1,81 @@
+//Reverse path in binary tree
+import java.util.*;
+class Node
+{
+    int val;
+    Node left;
+    Node right;
+    Node() {}
+    Node(int val) { this.val = val; }
+    Node(int val, Node left, Node right)
+    {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+public class BinaryTree 
+{
+	static void reverseTreePathUtil(Node root,int pathLen, ArrayList<Node> path, int key)
+	{
+		if(root==null)
+			return;
+		
+		path.set(pathLen, root);
+	    pathLen++;
+		
+		
+		if(root.val == key)
+		{
+			int i=0;
+			int j=pathLen-1;
+			while(i<j)
+			{
+				int temp = path.get(i).val;
+				path.get(i).val = path.get(j).val;
+				path.get(j).val = temp;
+				i++;
+				j--;
+			}
+		}
+		if (root.left == null && root.right == null)
+	        return;
+		
+		reverseTreePathUtil(root.left,pathLen,path,key);
+		reverseTreePathUtil(root.right,pathLen,path,key);
+		
+	}
+	static void reverseTreePath(Node root, int key)
+	{
+		if (root == null)
+	        return;
+	    ArrayList<Node> path = new ArrayList<Node>();
+	    for(int i = 0; i < 50; i++)
+	    {
+	        path.add(null);
+	    }
+		 reverseTreePathUtil(root,0,path,key);
+	}
+	static void inorder(Node temp)
+	{
+	    if (temp == null)
+	        return;
+	 
+	    inorder(temp.left);
+	    System.out.print(temp.val+" ");
+	    inorder(temp.right);
+	}
+	public static void main(String[] args) 
+	{
+		Node root = new Node(7);
+	    root.left = new Node(6);
+	    root.right = new Node(5);
+	    root.left.left = new Node(4);
+	    root.left.right = new Node(3);
+	    root.right.left = new Node(2);
+	    root.right.right = new Node(1);
+	    
+	    reverseTreePath(root,4);
+	    inorder(root);
+	}
+}
