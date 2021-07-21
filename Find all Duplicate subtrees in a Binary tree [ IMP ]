@@ -1,0 +1,80 @@
+//Find all Duplicate subtrees in a Binary tree [ IMP ]
+//Check if a Binary Tree contains duplicate subtrees of size 2 or more [ IMP ]
+
+Time Complexity - O(n)
+
+import java.util.*;
+import java.util.Map.Entry;
+//Find all Duplicate subtree
+
+class Node{
+	
+	char val;
+	Node left;
+	Node right;
+	
+	Node(char val){
+	
+		this.val = val;
+		this.left = null;
+		this.right = null;	
+	}
+	Node(){};
+}
+public class Solution {
+	
+	static HashMap<String, Integer> m;
+    static String inorder(Node node)
+    {
+        if (node == null)
+            return "";
+      
+        String str = "";
+        str += inorder(node.left);
+        str += node.val;
+        str += inorder(node.right);
+        str += "";
+      
+        if(m.get(str) != null && m.get(str)==1  && str.length()>=2) {
+                System.out.print( node.val + " ");
+        	
+        	 
+        	System.out.println("Yes");
+        }
+        
+        if (m.containsKey(str))
+            m.put(str, m.get(str) + 1);
+        else
+            m.put(str, 1);
+         
+        return str;
+    }
+    
+    static void printAllDups(Node root)
+    {
+        m = new HashMap<>();
+        inorder(root);
+    }
+//	public static void printInorder(Node node) {
+//		
+//        if (node == null)
+//            return;
+// 
+//        printInorder(node.left);
+//        System.out.print(node.val + " ");
+//        printInorder(node.right);
+//    }
+	
+    public static void main(String[] args) {
+    
+    	Node root = new Node('A');
+        root.left = new Node('B');
+        root.right = new Node('C');
+        root.left.left = new Node('D');
+        root.left.right = new Node('E');
+        root.right.right = new Node('B');
+        root.right.right.right = new Node('E');
+        root.right.right.left= new Node('D');
+        printAllDups(root);
+	}
+}
