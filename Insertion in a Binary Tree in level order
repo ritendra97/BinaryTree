@@ -66,3 +66,60 @@ public class BinaryTree
 	    inorder(root);
 	}
 }
+
+
+//Insertion in a Binary Tree in level order
+import java.util.*;
+
+class Node {
+	int data;
+	Node left;
+	Node right;
+
+	Node(int data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+}
+
+public class Practice {
+	static Node root;
+
+	static void insertion(Node root, int key) {
+		if (root == null)
+			return;
+		if (root.left != null && root.right == null) {
+			root.right = new Node(key);
+
+		} else if (root.right != null && root.left == null) {
+			root.left = new Node(key);
+		}
+
+		insertion(root.left, key);
+		insertion(root.right, key);
+	}
+
+	static void inorder(Node temp) {
+		if (temp == null)
+			return;
+
+		inorder(temp.left);
+		System.out.print(temp.data + " ");
+		inorder(temp.right);
+	}
+
+	public static void main(String[] args) {
+		root = new Node(10);
+		root.left = new Node(11);
+		root.right = new Node(9);
+		root.left.left = new Node(7);
+		root.right.left = new Node(15);
+		root.right.right = new Node(8);
+		System.out.print("Inorder traversal before insertion:");
+		inorder(root);
+		insertion(root, 12);
+		System.out.print("\nInorder traversal after insertion:");
+		inorder(root);
+	}
+}
