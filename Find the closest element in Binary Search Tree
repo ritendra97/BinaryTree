@@ -1,0 +1,68 @@
+//Find the closest element in Binary Search Tree
+import java.util.*;
+
+class Node {
+	int data;
+	Node left;
+	Node right;
+
+	Node(int data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+}
+
+class index {
+	int index;
+}
+
+public class Practice {
+
+	static int min_diff = Integer.MAX_VALUE;
+	static int min_diff_key = Integer.MAX_VALUE;
+
+	public static void minDiff(Node root, int k) {
+		if (root == null)
+			return;
+		if (root.data == k) {
+			min_diff_key = k;
+			return;
+		}
+
+		if (min_diff > Math.abs(root.data - k)) {
+			min_diff = Math.abs(root.data - k);
+			min_diff_key = root.data;
+		}
+
+		if (k < root.data) {
+			minDiff(root.left, k);
+		} else {
+			minDiff(root.right, k);
+		}
+	}
+
+	static void inorder(Node temp) {
+		if (temp == null)
+			return;
+		inorder(temp.left);
+		System.out.print(temp.data + " ");
+		inorder(temp.right);
+	}
+
+	public static void main(String[] args) {
+
+		Node root = new Node(9);
+		root.left = new Node(4);
+		root.right = new Node(17);
+		root.left.left = new Node(3);
+		root.left.right = new Node(6);
+		root.left.right.left = new Node(5);
+		root.left.right.right = new Node(7);
+		root.right.right = new Node(22);
+		root.right.right.left = new Node(20);
+		int k = 18;
+		minDiff(root, k);
+		System.out.println(min_diff_key);
+	}
+}
