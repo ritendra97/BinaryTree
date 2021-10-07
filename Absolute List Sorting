@@ -1,0 +1,73 @@
+/Absolute List Sorting
+import java.util.HashSet;
+
+class ListNode {
+	int val;
+	ListNode next;
+
+	ListNode(int d) {
+		this.val = d;
+		this.next = null;
+	}
+
+	ListNode(int val, ListNode next) {
+		super();
+		this.val = val;
+		this.next = next;
+	}
+
+}
+
+// Sort linked list which is already sorted on absolute values
+public class LinkedList {
+
+	public static ListNode Manage(ListNode head) {
+
+		if (head == null)
+			return null;
+
+		ListNode curr = head;
+		ListNode prev = head;
+		ListNode next = null;
+
+
+		while (curr != null) {
+			
+			next = curr.next;
+			if (curr.val<prev.val) {
+				prev.next = next;
+				curr.next = head;
+				head = curr;
+
+			} else {
+				prev = curr;
+			}
+
+			curr = next;
+		}
+		return head;
+	}
+
+	public static void Display(ListNode head) {
+		
+		ListNode temp = head;
+
+		while (temp != null) {
+			System.out.println(temp.val);
+			temp = temp.next;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(-2);
+		head.next.next = new ListNode(-3);
+		head.next.next.next = new ListNode(4);
+		head.next.next.next.next = new ListNode(-5);
+
+		ListNode ans = Manage(head);
+		Display(ans);
+
+	}
+}
