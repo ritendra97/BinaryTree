@@ -69,3 +69,73 @@ public class BinaryTree
 		printinpreamdpost(root);
 	}
 }
+
+import java.util.Stack;
+
+class pairdia {
+	int ht;
+	int dia;
+
+	pairdia(int ht, int dia) {
+		this.ht = ht;
+		this.dia = dia;
+	}
+
+	pairdia() {
+
+	}
+}
+
+// Inorder
+public class BinaryTree {
+
+	static class Node {
+
+		int data;
+		Node left;
+		Node right;
+
+		Node(int data) {
+			this.data = data;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+	public static void inOrder(Node root) {
+		if (root == null)
+			return;
+
+		Stack<Node> s = new Stack<Node>();
+		Node curr = root;
+
+		
+		while (curr != null || s.size() > 0) {
+
+			while (curr != null) {
+				
+				s.push(curr);
+				curr = curr.left;
+			}
+
+			curr = s.pop();
+
+			System.out.print(curr.data + " ");
+			curr = curr.right;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		Node root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		root.left.right = new Node(4);
+		root.right.left = new Node(5);
+		root.right.right = new Node(6);
+		root.right.left.left = new Node(7);
+		root.right.left.right = new Node(8);
+
+		inOrder(root);
+	}
+}
