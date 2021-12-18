@@ -1,0 +1,133 @@
+//Construct BST using PreOrder Traversal
+//All Nodes Distance K in Binary Tree
+
+import javax.swing.*;
+import java.util.*;
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int val) {
+        this.data = val;
+        this.left = this.right = null;
+    }
+}
+class hei{
+
+    Node root;
+    int high;
+
+    public hei(Node root, int high) {
+        this.root = root;
+        this.high = high;
+    }
+}
+
+class Index{
+    int ind;
+}
+public class Main {
+
+    public static Node constructBST(int arr[], Index index, int size, int left, int right){
+
+        if(index.ind>=size || left>=right) return null;
+
+        Node root = new Node(index.ind);
+        index.ind = index.ind+1;
+
+        if(left==right) return root;
+
+        int i;
+        for(i= left;i<=right;i++){
+            if(arr[i]> root.data) break;
+        }
+
+        root.left = constructBST(arr,index,size,left,i-1);
+        root.right = constructBST(arr,index,size,i,right);
+
+        return root;
+    }
+    public static void print(Node root){
+        if(root==null) return;
+
+        System.out.print(root.data+" ");
+        print(root.left);
+        print(root.right);
+    }
+    public static void main(String[] args){
+
+        int arr[] = {18, 12, 20, 8, 15, 25, 5, 9, 22, 31};
+
+        Node ans = constructBST(arr);
+        print(ans);
+    }
+}
+
+// Time Complexity O(n)
+import java.util.Scanner;
+
+
+public class Main {
+    public static Scanner scn = new Scanner(System.in);
+
+    public static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+    
+    public static int ind = 0;
+    public static TreeNode helper(int lr, int rr, int[] preorder){
+        
+        if(ind>=preorder.length || preorder[ind]<lr || preorder[ind]>rr || lr>rr)                return null;
+        
+        TreeNode root = new TreeNode(preorder[ind++]);
+        
+        root.left = helper(lr,root.val,preorder);
+        root.right = helper(root.val,rr,preorder);
+        
+        return root;
+    }
+    
+    public static TreeNode bstFromPreorder(int[] preorder) {
+        
+        TreeNode ans = helper(Integer.MIN_VALUE, Integer.MAX_VALUE, preorder);
+        
+        return ans;
+    }
+
+    public static void display(TreeNode node) {
+        if (node == null)
+            return;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append((node.left != null ? node.left.val : "."));
+        sb.append(" -> " + node.val + " <- ");
+        sb.append((node.right != null ? node.right.val : "."));
+
+        System.out.println(sb.toString());
+
+        display(node.left);
+        display(node.right);
+
+    }
+
+    public static void solve() {
+        int n = scn.nextInt();
+        int[] pre = new int[n];
+        for (int i = 0; i < n; i++)
+            pre[i] = scn.nextInt();
+
+        TreeNode root = bstFromPreorder(pre);
+        display(root);
+    }
+
+    public static void main(String[] args) {
+        solve();
+    }
+}
