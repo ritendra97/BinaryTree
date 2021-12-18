@@ -1,0 +1,64 @@
+//All Nodes Distance K in Binary Tree
+
+import javax.swing.*;
+import java.util.*;
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int val) {
+        this.data = val;
+        this.left = this.right = null;
+    }
+}
+class hei{
+
+    Node root;
+    int high;
+
+    public hei(Node root, int high) {
+        this.root = root;
+        this.high = high;
+    }
+}
+public class Main {
+
+    public static Node constructBSTUtil(Node root, int key){
+        if(root==null){
+            root = new Node(key);
+            return root;
+        }
+
+        if(key<root.data){
+            root.left = constructBSTUtil(root.left,key);
+        }else{
+            root.right = constructBSTUtil(root.right,key);
+        }
+
+        return root;
+    }
+
+    public static Node constructBST(int arr[]){
+        Node root = null;
+        for(int i = 0;i< arr.length;i++){
+            root = constructBSTUtil(root,arr[i]);
+        }
+
+        return root;
+    }
+    public static void print(Node root){
+        if(root==null) return;
+
+        System.out.print(root.data+" ");
+        print(root.left);
+        print(root.right);
+    }
+    public static void main(String[] args){
+
+        int arr[] = {18, 12, 20, 8, 15, 25, 5, 9, 22, 31};
+
+        Node ans = constructBST(arr);
+        print(ans);
+    }
+}
