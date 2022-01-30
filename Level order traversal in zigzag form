@@ -54,3 +54,31 @@ public class TreeZigZag
 		t.traverse(t.root);
 	}
 }
+class Solution {
+    
+    public void helper(TreeNode root , List<List<Integer>> ans , int height) {
+        
+        if(root==null)
+            return ;
+        if(ans.size()==height){
+            ans.add(new ArrayList<Integer>());
+        }
+        
+        if(height%2==0){
+            ans.get(height).add(root.val);
+        }else{
+             ans.get(height).add(0,root.val);
+        }
+        
+        helper(root.left,ans,height+1);
+        helper(root.right,ans,height+1);
+    }
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root==null)
+            return ans;
+        helper(root,ans,0);
+        return ans;
+    }
+}
