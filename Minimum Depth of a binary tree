@@ -54,17 +54,18 @@ class Node {
 public class BinaryTree 
 {
 	static Node root;
-	public static int min_h(Node node)
-	{
-		if(node==null)
-			return 0;
-		int l_h = min_h(node.left);
-		int r_h = min_h(node.right);
-		
-		int t_h = Math.min(l_h, r_h)+1;
-		
-		return t_h;
-	}
+	public static int Min_Depth(Node root){
+
+       	 	if(root==null) return 0;
+
+       	 	int min_l = Min_Depth(root.left);
+        	int min_r = Min_Depth(root.right);
+
+        	if(min_l==0 || min_r==0) return 1+Math.max(min_l,min_r);
+
+        	return Math.min(min_l,min_r)+1;
+        }
+	
 	static void inorder(Node node)
 	{
 		if(node==null)
