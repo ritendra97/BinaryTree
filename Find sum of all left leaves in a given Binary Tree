@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Node{
+
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data){
+        this.data=data;
+    }
+}
+
+public class Main {
+
+    public static boolean isLeaf(Node root){
+
+        if(root==null) return false;
+
+        if(root.left ==null && root.right==null) return true;
+
+        return false;
+    }
+
+    public static int Solution(Node root){
+
+        int res = 0;
+
+        if(root!=null){
+
+            if(isLeaf(root)){
+                res+=root.left.data;
+            }else{
+                res+=Solution(root.left);
+            }
+
+            Solution(root.right);
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args){
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.left.left.left = new Node(8);
+    }
+}
