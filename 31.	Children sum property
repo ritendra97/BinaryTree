@@ -44,6 +44,55 @@ public class BinaryTree
 		System.out.println(checksumproperty(root));
     }
 }
+/// new one
+class Node{
+
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data=data;
+    }
+}
+
+public class BinaryTree {
+
+	public static int min_h(Node node) {
+
+		if (node == null)
+			return 0;
+
+		if (node.left == null && node.right == null)
+			return node.data;
+
+		int l = min_h(node.left);
+		int r = min_h(node.right);
+
+		if (l + r == node.data)
+			return node.data;
+
+		return 0;
+	}
+
+	public static void main(String[] args) {
+
+	       Node root = new Node(10);
+	       root.left = new Node(8);
+	       root.right = new Node(2);
+	       root.right.left = new Node(2);
+	       root.left.left = new Node(3);
+	       root.left.right = new Node(5);
+	       root.right.right = new Node(2);
+	       
+	       int ans = min_h(root);
+
+	       if(ans==0){
+	          System.out.println(false);
+	       }else{
+	          System.out.println(true);
+	       }
+	}
+}
 
 import java.util.*;
 class BinaryNode
