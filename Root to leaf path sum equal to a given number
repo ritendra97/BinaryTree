@@ -48,18 +48,48 @@ public class BinaryTree
 	}
 
 }
-bool hasPathSum(Node *root, int sum) {
 
-if(root==NULL )
-return false;
-// if(sum < 0)
-// return false;
+import java.net.http.HttpResponse.PushPromiseHandler;
+import java.util.Stack;
 
-int subSum = (sum - root->data);
+import apple.laf.JRSUIUtils.Tree;
 
-if((root->left == NULL && root->right ==NULL) && subSum == 0)
-        return true;
+class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    int val;
+    TreeNode(int val){
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
 
-return (hasPathSum(root->left , subSum) || hasPathSum(root->right , subSum));
+public class BinaryTree{    
 
+    public static boolean hasPath(TreeNode root, int data){
+        
+        if(root==null) return false; 
+        
+        if(root.left==null && root.right==null)
+        {
+            data =  data-root.val;
+            if(data==0) return true;
+        }else{
+            data =  data-root.val;
+        }
+        
+        return hasPath(root.left, data)||
+        hasPath(root.right, data);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(10);
+        root.left = new TreeNode(8);
+        root.right = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(2);
+        System.out.println(hasPath(root, 3));
+    }
 }
