@@ -103,6 +103,58 @@ class BinaryTree {
 	}
 }
 
+import java.net.http.HttpResponse.PushPromiseHandler;
+import java.util.Stack;
+
+import javax.management.relation.Role;
+
+import apple.laf.JRSUIUtils.Tree;
+
+class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    int val;
+    TreeNode(int val){
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+public class BinaryTree{    
+
+    public static int getLevelUtil(TreeNode node, int data, int dis){
+        
+        if(node==null){
+            return Integer.MAX_VALUE;
+        }
+
+        if(node.val==data){
+            return dis;
+        }
+
+        int ldis = getLevelUtil(node.left, data, dis+1);
+        int rdis = getLevelUtil(node.right, data, dis+1);
+
+        return Math.min(ldis, rdis);
+    }
+
+    public static int getLevel(TreeNode node, int data){
+        return getLevelUtil(node, data, 0);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(10);
+        root.left = new TreeNode(8);
+        root.right = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(2);
+        System.out.println(getLevel(root, 9));
+    }
+}
+
+
 // This code has been contributed by Mayank
 // Jaiswal(mayank_24)
 
